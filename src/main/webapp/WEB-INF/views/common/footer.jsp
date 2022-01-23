@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<div class="jumbotron">
+	<div class="jumbotron" style="margin-top:10px">
    		<h1>Bootstrap Tutorial</h1>      
    		<p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
   	</div> 

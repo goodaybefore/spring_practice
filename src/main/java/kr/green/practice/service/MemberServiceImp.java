@@ -29,6 +29,20 @@ public class MemberServiceImp implements MemberService{
 		
 		
 	}
+
+	@Override
+	public MemberVO loginMember(MemberVO user) {
+		//user == null인 경우 생각하기
+		if(user == null || user.getMe_id()== null) return null;
+		
+		MemberVO dbuser = memberDao.selectMember(user.getMe_id());
+		if(dbuser == null) return null;
+		if(dbuser.getMe_id().equals(user.getMe_id()) 
+				&& passwordEncoder.matches(user.getMe_pw(), dbuser.getMe_pw())) {
+			return dbuser;
+		}
+		return null;
+	}
 	
 
 }

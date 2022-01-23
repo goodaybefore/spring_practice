@@ -1,5 +1,7 @@
 package kr.green.practice.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,9 @@ public class HomeController {
 	MemberService memberService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv) {
+	public ModelAndView home(ModelAndView mv, HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		System.out.println(user);
 		mv.setViewName("/main/home");
 		return mv;
 	}
@@ -37,6 +41,29 @@ public class HomeController {
 			mv.setViewName("/member/signup");
 		}else {
 			memberService.signupMember(user);
+			mv.setViewName("redirect:/");
+		}
+		return mv;
+	}
+	
+	//로그인 get
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public ModelAndView loginGet(ModelAndView mv) {
+		mv.setViewName("/member/login");
+		return mv;
+	}
+	//로그인 post
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public ModelAndView loginPost(ModelAndView mv, MemberVO user) {
+		//login되면 true, 안되면 false
+		MemberVO loginMember = memberService.loginMember(user);
+		System.out.println(loginMember);
+		if(loginMember == null) {
+			System.out.println("로그인실패");
+			mv.setViewName("redirect:/login");
+		}else {
+			System.out.println("로그인 성공");
+			mv.addObject("user", loginMember);
 			mv.setViewName("redirect:/");
 		}
 		return mv;

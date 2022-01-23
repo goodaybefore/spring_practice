@@ -39,6 +39,15 @@
 	
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/assets/**" location="/assets/" />
-
+	
+	<!-- interceptor -->
+	<beans:bean id="loginInterceptor" 
+	class="kr.green.practice.interceptor.LoginInterceptor"></beans:bean>
+	<interceptors>
+	    <interceptor>
+	        <mapping path="/login"/>
+	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	</interceptors>
 	
 </beans:beans>

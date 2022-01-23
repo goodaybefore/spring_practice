@@ -13,10 +13,10 @@
 		      <a class="nav-link" href="<%= request.getContextPath()%>">Main</a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link" href="<%= request.getContextPath()%>/signup">signup</a>
+		      <a class="nav-link" href="<%= request.getContextPath()%>/login">login</a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link" href="#">Link</a>
+		      <a class="nav-link" href="<%= request.getContextPath()%>/signup">signup</a>
 		    </li>
 		    <li class="nav-item">
 		      <a class="nav-link disabled" href="#">Disabled</a>
