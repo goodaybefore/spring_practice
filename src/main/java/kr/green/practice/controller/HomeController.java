@@ -1,5 +1,6 @@
 package kr.green.practice.controller;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,6 @@ public class HomeController {
 	public ModelAndView loginPost(ModelAndView mv, MemberVO user) {
 		//login되면 true, 안되면 false
 		MemberVO loginMember = memberService.loginMember(user);
-		System.out.println(loginMember);
 		if(loginMember == null) {
 			System.out.println("로그인실패");
 			mv.setViewName("redirect:/login");
@@ -66,6 +66,13 @@ public class HomeController {
 			mv.addObject("user", loginMember);
 			mv.setViewName("redirect:/");
 		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public ModelAndView logoutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
