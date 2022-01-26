@@ -18,7 +18,7 @@
 		      <label>PASSWORD:</label>
 		      <input type="password" class="form-control" name="me_pw" placeholder="PW">
 		    </div>
-		    <button type="submit" class="btn col-12 bg-info">login</button>
+		    <button type="submit" class="btn col-12 btn-info">login</button>
 		</form>
 	</div>
 </body>
