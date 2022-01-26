@@ -12,10 +12,16 @@ public class GuestInterceptor extends HandlerInterceptorAdapter{
 			HttpServletResponse response, 
 			Object handler)
 			throws Exception {
+		
 		HttpSession session = request.getSession();
 		Object user = session.getAttribute("user");
-		if(user == null) {
-			response.sendRedirect("/");
+
+		//로그인을 했으면
+		if(user != null) {
+			//home 화면으로 페이지로 이동
+			//가던 url로 가지않고 위에 있는 url로 이동
+			response.sendRedirect(request.getContextPath()+"/");
+			return false;
 		}
 		return true;
 	}
