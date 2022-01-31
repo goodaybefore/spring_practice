@@ -23,13 +23,19 @@
 		      <c:forEach items="${list}" var="board">
 			      <tr>
 			      	<td>${board.bd_num }</td>
-			        <td>${board.bd_title}</td>
+			        <td><a href="<%=request.getContextPath()%>/board/detail?bd_num=${board.bd_num}">${board.bd_title}</a></td>
 			        <td>${board.bd_me_id}</td>
 			        <td>${board.bd_reg_date}</td>
 			      </tr>
 		      </c:forEach>
 		    </tbody>
 		  </table>
+		  
+		  <c:if test="${user.me_id !=null }">
+			  <a href="<%= request.getContextPath()%>/board/register">
+			  	<button class="btn btn-success">write</button>
+			  </a>
+		  </c:if>
 	</div>
 </body>
 </html>
