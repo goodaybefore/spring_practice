@@ -16,5 +16,12 @@
 	AND
 		bd_del='N';
 </select>
-
+<insert id="insertBoard">
+	INSERT INTO board
+		(bd_title, bd_contents, bd_reg_date, bd_type, bd_me_id, bd_ori_num, bd_del)
+	SELECT #{board.bd_title}, #{board.bd_contents}, now(), #{board.bd_type},
+		#{user.me_id}, ifnull(max(bd_num),0)+1 , 'N'
+		FROM board;
+	
+</insert>
 </mapper>

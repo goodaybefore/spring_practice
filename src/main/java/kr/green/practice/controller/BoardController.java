@@ -59,11 +59,13 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/register",method = RequestMethod.POST)
-	public ModelAndView boardRegPost(ModelAndView mv, BoardVO board, HttpServletRequest request, MemberVO user) {
+	public ModelAndView boardRegPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		System.out.println(board);
 		System.out.println(user);
 		
 		mv.setViewName("/board/register");
+		boardService.regBoard(board, user);
 		return mv;
 	}
 
