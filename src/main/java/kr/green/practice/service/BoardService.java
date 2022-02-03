@@ -13,4 +13,6 @@ public interface BoardService {
 
 	void regBoard(BoardVO board, MemberVO user);
 
+	void modifyBoard(MemberVO loginUser, BoardVO board);
+
 }

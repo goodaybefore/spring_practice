@@ -21,6 +21,9 @@
 		    <label>Contents</label>
 		    <textarea class="form-control" rows="10" readonly>${board.bd_contents }</textarea>
 	  	</div>
+	  	<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
+	  		<button class="btn btn-warning">modify</button>
+	  	</a>
 	</div>
 </body>
 </html>

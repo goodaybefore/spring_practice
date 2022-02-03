@@ -30,7 +30,23 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public void regBoard(BoardVO board, MemberVO user) {
 		if(board == null || user== null) return;
+		board.setBd_type("일반");
 		boardDao.insertBoard(board, user);
+	}
+
+	@Override
+	public void modifyBoard(MemberVO loginUser, BoardVO board) {
+		if(board == null || loginUser == null) return ;
+		System.out.println("board"+board);
+		//가져온 board의 bd_num을 이용해서 기존 board정보를 가져온다.
+		BoardVO dbBoard = boardDao.selectBoard(board.getBd_num());
+		System.out.println("dbBoard : "+dbBoard);
+		//db에서 가져온 board의 id가 현재 로그인되어있는 id와 다르다면 return;
+		if(!dbBoard.getBd_me_id().equals(loginUser.getMe_id())) return ;
+		System.out.println("dbBoard : ");
+		
+		boardDao.updateBoard(board);
+		
 	}
 
 }

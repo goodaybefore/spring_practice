@@ -22,6 +22,13 @@
 	SELECT #{board.bd_title}, #{board.bd_contents}, now(), #{board.bd_type},
 		#{user.me_id}, ifnull(max(bd_num),0)+1 , 'N'
 		FROM board;
-	
 </insert>
+<update id="updateBoard">
+UPDATE board SET
+	bd_title = #{board.bd_title},
+	bd_contents= #{board.bd_contents},
+	bd_up_date = now()
+WHERE
+	bd_num = #{board.bd_num};
+</update>
 </mapper>
