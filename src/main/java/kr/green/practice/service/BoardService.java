@@ -15,4 +15,6 @@ public interface BoardService {
 
 	void modifyBoard(MemberVO loginUser, BoardVO board);
 
+	void deleteBoard(MemberVO loginUser, Integer bd_num);
+
 }

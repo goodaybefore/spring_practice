@@ -24,6 +24,7 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
+	//게시글 리스트 GET
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView boardList(ModelAndView mv, HttpServletRequest request) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
@@ -38,6 +39,7 @@ public class BoardController {
 		return mv;
 	}
 	
+	//게시글 상세
 	@RequestMapping(value="/detail",method = RequestMethod.GET)
 	public ModelAndView boardDetail(ModelAndView mv, Integer bd_num) {
 		BoardVO board = boardService.getBoard(bd_num);
@@ -46,6 +48,7 @@ public class BoardController {
 		return mv;
 	}
 	
+	//게시글 등록 GET
 	@RequestMapping(value="/register",method = RequestMethod.GET)
 	public ModelAndView boardRegGet(ModelAndView mv, HttpServletRequest request) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
@@ -58,17 +61,19 @@ public class BoardController {
 		return mv;
 	}
 	
+	//게시글 등록 POST
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public ModelAndView boardRegPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		System.out.println(board);
 		System.out.println(user);
 		
-		mv.setViewName("redirect:/list");
+		mv.setViewName("redirect:/board");
 		boardService.regBoard(board, user);
 		return mv;
 	}
 	
+	//게시글 수정 GET
 	@RequestMapping(value="/modify",method = RequestMethod.GET)
 	public ModelAndView boardModifyGet(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
@@ -85,7 +90,7 @@ public class BoardController {
 		return mv;
 	}
 	
-	
+	//게시글 수정 POST
 	@RequestMapping(value="/modify",method = RequestMethod.POST)
 	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
 		MemberVO loginUser = (MemberVO)request.getSession().getAttribute("user");
@@ -93,5 +98,15 @@ public class BoardController {
 		mv.setViewName("redirect:/board/detail?bd_num="+board.getBd_num());
 		return mv;
 	}
-
+	
+	
+	//게시글 삭제
+	@RequestMapping(value="/delete",method = RequestMethod.GET)
+	public ModelAndView boardDeleteGet(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
+		MemberVO loginUser = (MemberVO)request.getSession().getAttribute("user");
+		System.out.println("bd_num : "+bd_num);
+		boardService.deleteBoard(loginUser, bd_num);
+		mv.setViewName("redirect:/board/");
+		return mv;
+	}
 }

@@ -24,11 +24,18 @@
 		FROM board;
 </insert>
 <update id="updateBoard">
-UPDATE board SET
-	bd_title = #{board.bd_title},
-	bd_contents= #{board.bd_contents},
-	bd_up_date = now()
-WHERE
-	bd_num = #{board.bd_num};
+	UPDATE board SET
+		bd_title = #{board.bd_title},
+		bd_contents= #{board.bd_contents},
+		bd_up_date = now()
+	WHERE
+		bd_num = #{board.bd_num};
+</update>
+<update id="deleteBoard">
+	UPDATE board SET
+		bd_del = 'Y',
+		bd_del_date = now()
+	WHERE
+		bd_num = #{bd_num};
 </update>
 </mapper>

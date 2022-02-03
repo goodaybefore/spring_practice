@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,9 +22,14 @@
 		    <label>Contents</label>
 		    <textarea class="form-control" rows="10" readonly>${board.bd_contents }</textarea>
 	  	</div>
-	  	<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
-	  		<button class="btn btn-warning">modify</button>
-	  	</a>
+	  	<c:if test="${user.me_id == board.bd_me_id}">
+		  	<a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
+		  		<button class="btn btn-warning">modify</button>
+		  	</a>
+		  	<a href="<%=request.getContextPath()%>/board/delete?bd_num=${board.bd_num}">
+		  		<button class="btn btn-danger">delete</button>
+		  	</a>
+	  	</c:if>
 	</div>
 </body>
 </html>
