@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container body">
-		<form class="form-group" action="<%= request.getContextPath()%>/board/register" method="POST">
+		<form class="form-group" action="<%= request.getContextPath()%>/board/register" method="POST" enctype="multipart/form-data">
 			<h1>BOARD detail</h1>
 			<div class="form-group">
 				<label>Title</label>
@@ -21,8 +21,11 @@
 		  	<a href="<%= request.getContextPath()%>/board/register">
 	  			<button class="btn btn-success">confirm</button>
 	  		</a>
-	  		
 	  		<input type="hidden" name="user" value="${user.me_id}">
+	  		<div class="form-group">
+	  			<label>파일 첨부</label>
+	  			<input type="file" class="form-control" name="file"/>
+	  		</div>
 	  	</form>
 	</div>
 	
