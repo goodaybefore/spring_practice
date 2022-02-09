@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.green.practice.Utils.UploadFileUtils;
 import kr.green.practice.dao.BoardDAO;
 import kr.green.practice.vo.BoardVO;
+import kr.green.practice.vo.FileVO;
 import kr.green.practice.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService{
 	@Autowired
 	BoardDAO boardDao;
+	
+	String uploadPath = "C:\\Users\\tsj02\\Documents\\practice_upload";
 	
 	//게시글 전체 리스트(/board)
 	@Override
@@ -28,10 +33,40 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public void regBoard(BoardVO board, MemberVO user) {
+	public void regBoard(BoardVO board, MemberVO user, List<MultipartFile> file) {
 		if(board == null || user== null) return;
+		board.setBd_me_id(user.getMe_id());
+		if(board.getBd_title()==null || board.getBd_contents()==null||
+				board.getBd_me_id()==null) return;
 		board.setBd_type("일반");
+		
+		//게시글 업로드
 		boardDao.insertBoard(board, user);
+		
+		//파일 업로드
+		uploadFile(file, board.getBd_num());
+	}
+
+	//첨부파일 업로드 함수
+	private void uploadFile(List<MultipartFile> files, Integer bd_num) {
+		if(files == null) return;
+		for(MultipartFile tmpFile : files) {
+			//첨부파일이 있고, 점푸 파일 이름이 1글자 이상인 경우에만 업로드
+			if(tmpFile !=null && tmpFile.getOriginalFilename().length() != 0) {
+				//첨부파일 업로드
+				String path;
+				try {
+					path = UploadFileUtils.uploadFile(uploadPath, tmpFile.getOriginalFilename(), tmpFile.getBytes() );
+					//DB에 저장
+					FileVO fileVo =  new FileVO(tmpFile.getOriginalFilename(), path, bd_num);
+					boardDao.insertFile(fileVo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+//					System.out.println("fileVo : "+fileVo);
+				
+			}
+		}
 	}
 
 	@Override

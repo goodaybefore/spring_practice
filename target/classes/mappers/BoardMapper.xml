@@ -16,7 +16,10 @@
 	AND
 		bd_del='N';
 </select>
-<insert id="insertBoard">
+<insert id="insertBoard"
+		useGeneratedKeys="true"
+		keyProperty="board.bd_num"
+		parameterType="kr.green.practice.vo.BoardVO">
 	INSERT INTO board
 		(bd_title, bd_contents, bd_reg_date, bd_type, bd_me_id, bd_ori_num, bd_del)
 	SELECT #{board.bd_title}, #{board.bd_contents}, now(), #{board.bd_type},
@@ -38,4 +41,10 @@
 	WHERE
 		bd_num = #{bd_num};
 </update>
+<insert id="insertFile">
+	INSERT INTO file
+		(fi_ori_name, fi_name, fi_bd_num)
+	VALUES
+		(#{file.fi_ori_name}, #{file.fi_name}, #{file.fi_bd_num});
+</insert>
 </mapper>

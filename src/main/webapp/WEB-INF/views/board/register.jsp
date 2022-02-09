@@ -18,14 +18,19 @@
 			    <label>Contents</label>
 			    <textarea class="form-control" rows="10" name="bd_contents"></textarea>
 		  	</div>
+		  	<div class="form-group">
+	  			<label>파일 첨부</label>
+	  			<input type="file" class="form-control" name="file"/>
+	  			<input type="file" class="form-control" name="file"/>
+	  			<input type="file" class="form-control" name="file"/>
+	  		</div>
 		  	<a href="<%= request.getContextPath()%>/board/register">
 	  			<button class="btn btn-success">confirm</button>
 	  		</a>
-	  		<input type="hidden" name="user" value="${user.me_id}">
 	  		<div class="form-group">
-	  			<label>파일 첨부</label>
-	  			<input type="file" class="form-control" name="file"/>
+	  			<input type="hidden" name="user" value="${user.me_id}">
 	  		</div>
+	  		
 	  	</form>
 	</div>
 	

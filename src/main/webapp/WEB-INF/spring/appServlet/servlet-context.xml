@@ -77,7 +77,7 @@
 	
 	<!-- 서버 저장된 파일 경로 설정 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-	    <beans:constructor-arg value="C:\\git\\uploadfiles"></beans:constructor-arg>
+	    <beans:constructor-arg value="C:\Users\tsj02\Documents\practice_upload"></beans:constructor-arg>
 	</beans:bean>
 	
 	

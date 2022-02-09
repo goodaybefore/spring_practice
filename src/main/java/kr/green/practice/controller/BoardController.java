@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.practice.service.BoardService;
@@ -63,13 +64,12 @@ public class BoardController {
 	
 	//게시글 등록 POST
 	@RequestMapping(value="/register",method = RequestMethod.POST)
-	public ModelAndView boardRegPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+	public ModelAndView boardRegPost(ModelAndView mv, BoardVO board, HttpServletRequest request,
+			List<MultipartFile> file) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
-		System.out.println(board);
-		System.out.println(user);
-		
+		System.out.println("board : "+board);
+		boardService.regBoard(board, user, file);
 		mv.setViewName("redirect:/board");
-		boardService.regBoard(board, user);
 		return mv;
 	}
 	
